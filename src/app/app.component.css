@@ -1,3 +1,11 @@
 h3 {
   color: darkblue;
 }
+
+.white-text {
+  color: white;
+}
+
+.italic-text {
+  font-style: italic;
+}

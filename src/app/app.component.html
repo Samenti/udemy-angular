@@ -30,20 +30,24 @@
         </li>
       </ol>
     </div>
-    <div class="col-xs-12">
-      <app-game-control
-        (counterEvent)="onCounterEvent($event)"
-      ></app-game-control>
+    <div class="row">
+      <div class="col-xs-12">
+        <app-game-control
+          (intervalFired)="onIntervalFired($event)"
+        ></app-game-control>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-6">
-      <h2>Odds:</h2>
-      <app-odd *ngFor="let num of odds" [number]="num"></app-odd>
-    </div>
-    <div class="col-xs-6">
-      <h2>Evens:</h2>
-      <app-even *ngFor="let num of evens" [number]="num"></app-even>
+    <div class="row">
+      <div class="col-xs-12">
+        <app-odd
+          *ngFor="let oddNumber of oddNumbers"
+          [number]="oddNumber"
+        ></app-odd>
+        <app-even
+          *ngFor="let evenNumber of evenNumbers"
+          [number]="evenNumber"
+        ></app-even>
+      </div>
     </div>
   </div>
 </div>

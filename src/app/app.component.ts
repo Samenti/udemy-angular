@@ -7,14 +7,14 @@ import { Component, Input } from '@angular/core';
 })
 export class AppComponent {
   @Input() counterEvent: number;
-  odds: number[] = [];
-  evens: number[] = [];
+  oddNumbers: number[] = [];
+  evenNumbers: number[] = [];
 
-  public onCounterEvent(counter) {
-    if (counter % 2 === 1) {
-      this.odds.push(counter);
-    } else if (counter % 2 === 0) {
-      this.evens.push(counter);
+  public onIntervalFired(firedNumber: number) {
+    if (firedNumber % 2 === 0) {
+      this.evenNumbers.push(firedNumber);
+    } else {
+      this.oddNumbers.push(firedNumber);
     }
   }
 }

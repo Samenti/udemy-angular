@@ -3,12 +3,15 @@ import {
   AfterContentInit,
   AfterViewChecked,
   Component,
+  ContentChild,
   DoCheck,
+  ElementRef,
   Input,
   OnChanges,
   OnDestroy,
   OnInit,
   SimpleChanges,
+  ViewChild,
 } from '@angular/core';
 
 @Component({
@@ -34,6 +37,9 @@ export class ServerElementComponent
   // };
   @Input() name: string;
 
+  @ViewChild('heading', { static: true }) header: ElementRef;
+  @ContentChild('contentParagraph', { static: true }) paragraph: ElementRef;
+
   constructor() {
     // runs on construction of the component class
     console.log('constructor called!');
@@ -48,6 +54,10 @@ export class ServerElementComponent
   ngOnInit(): void {
     // runs on initialization of properties, after Angular first displays the component
     console.log('ngOnInit called!');
+    // console.log('Text content: ' + this.header.nativeElement.textContent);
+    console.log(
+      'Text content of paragraph: ' + this.paragraph.nativeElement.textContent
+    );
   }
 
   ngDoCheck(): void {
@@ -58,6 +68,9 @@ export class ServerElementComponent
   ngAfterContentInit(): void {
     // runs after ng-content projection
     console.log('ngAfterContentInit called!');
+    console.log(
+      'Text content of paragraph: ' + this.paragraph.nativeElement.textContent
+    );
   }
 
   ngAfterContentChecked(): void {
@@ -68,6 +81,7 @@ export class ServerElementComponent
   ngAfterViewInit(): void {
     // runs after Angular initializes the views of the component and its children
     console.log('ngAfterViewInit called!');
+    // console.log('Text content: ' + this.header.nativeElement.textContent);
   }
 
   ngAfterViewChecked(): void {

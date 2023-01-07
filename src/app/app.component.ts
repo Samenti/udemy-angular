@@ -5,6 +5,5 @@ import { UsersService } from './users.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [UsersService],
 })
 export class AppComponent {}

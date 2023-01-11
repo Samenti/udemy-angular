@@ -22,6 +22,7 @@ export class UserComponent implements OnInit {
   }
 
   onActivate() {
-    this.userService.activatedEmitter.emit(true);
+    // a subject is an observable that has a next() method that is callable from outside
+    this.userService.activatedSubject.next(true);
   }
 }

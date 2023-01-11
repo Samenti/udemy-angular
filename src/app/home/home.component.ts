@@ -29,8 +29,12 @@ export class HomeComponent implements OnInit, OnDestroy {
       let count = 0;
       setInterval(() => {
         observer.next(count);
+        if (count === 2) {
+          // note: if the observer emits an end signal, unsubscribe automatically happens
+          observer.complete();
+        }
         if (count > 3) {
-          // note: if the observer emits an error, unsubscribe automatically happens
+          // note: if the observer emits an error, unsubscribe automatically happens, but it doesn't complete
           observer.error(new Error('Count is greater than 3!'));
         }
         count++;
@@ -53,6 +57,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       error: (error) => {
         console.log(error);
         alert(error.message);
+      },
+      complete: () => {
+        console.log('Observable is completed!');
       },
     });
   }

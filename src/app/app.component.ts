@@ -31,6 +31,9 @@ export class AppComponent implements OnInit {
       // hobbies: new FormArray([]),
       hobbies: this.hobbyControlArray,
     });
+
+    // this.signupForm.valueChanges.subscribe((value) => console.log(value));
+    this.signupForm.statusChanges.subscribe((value) => console.log(value));
   }
 
   onSubmit() {

@@ -12,6 +12,14 @@ export class AppComponent implements OnInit {
   signupForm: FormGroup;
   hobbyControlArray: FormArray;
   forbiddenUsernames = ['Chris', 'Anna'];
+  initialValues = {
+    'userData': {
+      'username': 'Max',
+      'email': 'max@test.com',
+    },
+    'gender': 'male',
+    'hobbies': [],
+  };
 
   ngOnInit(): void {
     this.hobbyControlArray = new FormArray([]);
@@ -34,10 +42,19 @@ export class AppComponent implements OnInit {
 
     // this.signupForm.valueChanges.subscribe((value) => console.log(value));
     this.signupForm.statusChanges.subscribe((value) => console.log(value));
+
+    this.signupForm.setValue(this.initialValues);
+    this.signupForm.patchValue({
+      'userData': {
+        'username': 'Anna',
+      },
+    });
+    this.signupForm.controls.userData.markAllAsTouched();
   }
 
   onSubmit() {
     console.log(this.signupForm);
+    this.signupForm.reset(this.initialValues);
   }
 
   // get controls() {

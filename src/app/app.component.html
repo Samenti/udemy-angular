@@ -14,6 +14,93 @@
 
           Upon submitting the form, simply print the value to the console
       -->
+      <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="project-name">Project Name</label>
+          <input
+            type="text"
+            id="project-name"
+            class="form-control"
+            formControlName="projectName"
+          />
+          <p
+            *ngIf="
+              !projectForm.get('projectName').valid &&
+              projectForm.get('projectName').touched
+            "
+          >
+            <span
+              class="help-block"
+              *ngIf="
+                projectForm.get('projectName').errors &&
+                projectForm.get('projectName').errors['required']
+              "
+              >This is a required field!</span
+            >
+            <span
+              class="help-block"
+              *ngIf="
+                projectForm.get('projectName').errors &&
+                projectForm.get('projectName').errors['incorrect']
+              "
+              >This name is not allowed!</span
+            >
+          </p>
+        </div>
+        <div class="form-group">
+          <label for="mail">Mail</label>
+          <input
+            type="email"
+            id="mail"
+            class="form-control"
+            formControlName="mail"
+          />
+          <p
+            *ngIf="
+              !projectForm.get('mail').valid && projectForm.get('mail').touched
+            "
+          >
+            <span
+              class="help-block"
+              *ngIf="
+                projectForm.get('mail').errors &&
+                projectForm.get('mail').errors['required']
+              "
+              >This is a required field!</span
+            >
+            <span
+              class="help-block"
+              *ngIf="
+                projectForm.get('mail').errors &&
+                projectForm.get('mail').errors['email']
+              "
+              >Enter a valid email!</span
+            >
+          </p>
+        </div>
+        <div class="form-group">
+          <label for="project-status">Project Stats</label>
+          <select
+            id="project-status"
+            class="form-control"
+            formControlName="projectStatus"
+          >
+            <option value="Stable">Stable</option>
+            <option value="Critical">Critical</option>
+            <option value="Finished">Finished</option>
+          </select>
+        </div>
+        <p class="help-block" *ngIf="!projectForm.valid && projectForm.touched">
+          Form state is invalid!
+        </p>
+        <button
+          [disabled]="!projectForm.valid"
+          type="submit"
+          class="btn btn-primary"
+        >
+          Submit
+        </button>
+      </form>
     </div>
   </div>
 </div>

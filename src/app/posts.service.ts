@@ -51,6 +51,7 @@ export class PostsService {
         {
           headers: new HttpHeaders({ 'Custom-Headers': 'Hello' }),
           params: searchParams,
+          responseType: 'json',
         }
       )
       .pipe(
@@ -76,6 +77,7 @@ export class PostsService {
         'https://udemy-angular-a1a93-default-rtdb.europe-west1.firebasedatabase.app/posts.json',
         {
           observe: 'events',
+          responseType: 'text',
         }
       )
       .pipe(

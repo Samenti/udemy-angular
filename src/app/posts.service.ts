@@ -50,7 +50,7 @@ export class PostsService {
         }),
         catchError((errorResp) => {
           // Send to analytics server
-          return throwError(() => new Error(errorResp));
+          return throwError(() => new Error(errorResp.message));
         })
       );
   }

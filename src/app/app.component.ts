@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs';
 import { Post } from './post.model';
 import { PostsService } from './posts.service';
 
@@ -12,6 +10,7 @@ import { PostsService } from './posts.service';
 export class AppComponent implements OnInit {
   loadedPosts: Post[] = [];
   isFetching: boolean;
+  error = null;
 
   constructor(private postsService: PostsService) {}
 
@@ -39,9 +38,25 @@ export class AppComponent implements OnInit {
 
   private fetchPosts() {
     this.isFetching = true;
-    this.postsService.fetchPosts().subscribe((posts) => {
-      this.isFetching = false;
-      this.loadedPosts = posts;
+    // ** below signature for subscribe() callbacks is deprecated
+    // this.postsService.fetchPosts().subscribe(
+    //   (posts) => {
+    //     this.isFetching = false;
+    //     this.loadedPosts = posts;
+    //   },
+    //   (error) => {
+    //     this.error = error.message;
+    //   }
+    // );
+    this.postsService.fetchPosts().subscribe({
+      next: (posts) => {
+        this.isFetching = false;
+        this.loadedPosts = posts;
+      },
+      error: (error) => {
+        this.error = error.message;
+        console.log(error);
+      },
     });
   }
 }

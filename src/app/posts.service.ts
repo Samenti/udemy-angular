@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Post } from './post.model';
-import { map } from 'rxjs';
+import { map, tap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class PostsService {
@@ -35,5 +35,11 @@ export class PostsService {
           return postsArray;
         })
       );
+  }
+
+  deletePosts() {
+    return this.http.delete(
+      'https://udemy-angular-a1a93-default-rtdb.europe-west1.firebasedatabase.app/posts.json'
+    );
   }
 }

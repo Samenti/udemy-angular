@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Post } from './post.model';
 import { catchError, map, Subject, tap, throwError } from 'rxjs';
 
@@ -34,9 +34,16 @@ export class PostsService {
   }
 
   fetchPosts() {
+    let searchParams = new HttpParams();
+    searchParams = searchParams.append('print', 'pretty');
+    searchParams = searchParams.append('custom', 'key');
     return this.http
       .get<{ [key: string]: Post }>(
-        'https://udemy-angular-a1a93-default-rtdb.europe-west1.firebasedatabase.app/posts.json'
+        'https://udemy-angular-a1a93-default-rtdb.europe-west1.firebasedatabase.app/posts.json',
+        {
+          headers: new HttpHeaders({ 'Custom-Headers': 'Hello' }),
+          params: searchParams,
+        }
       )
       .pipe(
         map((responseData) => {

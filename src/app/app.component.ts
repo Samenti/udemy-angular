@@ -9,11 +9,13 @@ import { Post } from './post.model';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  loadedPosts = [];
+  loadedPosts: Post[] = [];
+  isFetching: boolean;
 
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
+    this.isFetching = true;
     this.fetchPosts();
   }
 
@@ -39,6 +41,7 @@ export class AppComponent implements OnInit {
   }
 
   private fetchPosts() {
+    this.isFetching = true;
     this.http
       .get<{ [key: string]: Post }>(
         'https://udemy-angular-a1a93-default-rtdb.europe-west1.firebasedatabase.app/posts.json'
@@ -55,7 +58,8 @@ export class AppComponent implements OnInit {
         })
       )
       .subscribe((posts) => {
-        console.log(posts);
+        this.isFetching = false;
+        this.loadedPosts = posts;
       });
   }
 }

@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpEventType,
+  HttpHeaders,
+  HttpParams,
+} from '@angular/common/http';
 import { Post } from './post.model';
 import { catchError, map, Subject, tap, throwError } from 'rxjs';
 
@@ -21,7 +26,10 @@ export class PostsService {
     this.http
       .post<{ name: string }>(
         'https://udemy-angular-a1a93-default-rtdb.europe-west1.firebasedatabase.app/posts.json',
-        postData
+        postData,
+        {
+          observe: 'response',
+        }
       )
       .subscribe({
         next: (responseData) => {
@@ -63,8 +71,23 @@ export class PostsService {
   }
 
   deletePosts() {
-    return this.http.delete(
-      'https://udemy-angular-a1a93-default-rtdb.europe-west1.firebasedatabase.app/posts.json'
-    );
+    return this.http
+      .delete(
+        'https://udemy-angular-a1a93-default-rtdb.europe-west1.firebasedatabase.app/posts.json',
+        {
+          observe: 'events',
+        }
+      )
+      .pipe(
+        tap((event) => {
+          console.log(event);
+          if (event.type === HttpEventType.Sent) {
+            // ... waiting
+          }
+          if (event.type === HttpEventType.Response) {
+            console.log(event.body);
+          }
+        })
+      );
   }
 }

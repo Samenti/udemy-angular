@@ -9,14 +9,10 @@ export class PostsService {
 
   createAndStorePost(title: string, content: string) {
     const postData: Post = { title, content };
-    this.http
-      .post<{ name: string }>(
-        'https://udemy-angular-a1a93-default-rtdb.europe-west1.firebasedatabase.app/posts.json',
-        postData
-      )
-      .subscribe((responseData) => {
-        console.log(responseData);
-      });
+    return this.http.post<{ name: string }>(
+      'https://udemy-angular-a1a93-default-rtdb.europe-west1.firebasedatabase.app/posts.json',
+      postData
+    );
   }
 
   fetchPosts() {

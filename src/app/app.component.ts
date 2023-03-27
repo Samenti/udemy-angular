@@ -1,5 +1,6 @@
 import {
   animate,
+  group,
   keyframes,
   state,
   style,
@@ -128,13 +129,21 @@ import { Component } from '@angular/core';
         ),
       ]),
       transition('* => void', [
-        animate(
-          300,
-          style({
-            opacity: 0,
-            transform: 'translateX(100px)',
-          })
-        ),
+        group([
+          animate(
+            300,
+            style({
+              color: 'red',
+            })
+          ),
+          animate(
+            800,
+            style({
+              opacity: 0,
+              transform: 'translateX(100px)',
+            })
+          ),
+        ]),
       ]),
     ]),
   ],

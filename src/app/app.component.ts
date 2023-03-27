@@ -15,7 +15,7 @@ import { Component } from '@angular/core';
       state(
         'normal',
         style({
-          'background-color': 'red',
+          backgroundColor: 'red',
           transform: 'translateX(0)',
         })
       ),
@@ -32,8 +32,9 @@ import { Component } from '@angular/core';
       state(
         'normal',
         style({
-          'background-color': 'red',
+          backgroundColor: 'red',
           transform: 'translateX(0) scale(1)',
+          borderRadius: 0,
         })
       ),
       state(
@@ -41,18 +42,29 @@ import { Component } from '@angular/core';
         style({
           backgroundColor: 'blue',
           transform: 'translateX(100px) scale(1)',
+          borderRadius: 0,
         })
       ),
       state(
         'shrunken',
         style({
-          'background-color': 'green',
+          backgroundColor: 'green',
           transform: 'translateX(0) scale(0.5)',
+          borderRadius: 0,
         })
       ),
       transition('normal => highlighted', animate(300)),
       transition('highlighted => normal', animate(800)),
-      transition('shrunken <=> *', animate(500)),
+      transition('shrunken <=> *', [
+        style({ backgroundColor: 'orange' }),
+        animate(
+          1000,
+          style({
+            borderRadius: '50px',
+          })
+        ),
+        animate(500),
+      ]),
     ]),
   ],
 })
